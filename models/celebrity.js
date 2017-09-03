@@ -1,4 +1,4 @@
-const DB = require('./../db')
+const DB = require('./../config/db')
 
 const Media = require('./media')
 const Credit = require('./credit')

@@ -1,4 +1,4 @@
-const DB = require('./../db')
+const DB = require('./../config/db')
 
 const Title = require('./title')
 const Celebrity = require('./celebrity')

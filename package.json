@@ -5,9 +5,9 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "NODE_ENV=development nodemon ./bin/www",
-    "migrate": "node_modules/knex/bin/cli.js migrate:latest",
-    "rollback": "node_modules/knex/bin/cli.js migrate:rollback",
-    "seed": "node_modules/knex/bin/cli.js seed:run"
+    "migrate": "node_modules/knex/bin/cli.js --knexfile=./config/knexfile.js migrate:latest",
+    "rollback": "node_modules/knex/bin/cli.js --knexfile=./config/knexfile.js migrate:rollback",
+    "seed": "node_modules/knex/bin/cli.js --knexfile=./config/knexfile.js seed:run"
   },
   "engines": {
     "node": "7.10.0"
