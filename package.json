@@ -4,14 +4,17 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "NODE_ENV=development nodemon ./bin/www"
+    "dev": "NODE_ENV=development nodemon ./bin/www",
+    "migrate": "node_modules/knex/bin/cli.js migrate:latest",
+    "rollback": "node_modules/knex/bin/cli.js migrate:rollback",
+    "seed": "node_modules/knex/bin/cli.js seed:run"
   },
   "engines": {
     "node": "7.10.0"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
-    "bookshelf": "^0.10.3",
+    "bookshelf": "^0.10.4",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",

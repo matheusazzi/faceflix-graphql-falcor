@@ -1,11 +1,12 @@
 exports.up = (knex, Promise) => {
   return Promise.all([
-    knex.schema.createTableIfNotExists('users', (t) => {
+    knex.schema.createTableIfNotExists('celebrities', (t) => {
       t.increments('id').primary()
 
       t.string('name').notNullable()
-      t.string('email').unique().notNullable()
       t.enu('gender', ['male', 'female']).notNullable()
+      t.date('birthday')
+      t.text('biography')
 
       t.timestamps()
     })
@@ -14,6 +15,6 @@ exports.up = (knex, Promise) => {
 
 exports.down = (knex, Promise) => {
   return Promise.all([
-    knex.schema.dropTableIfExists('users')
+    knex.schema.dropTableIfExists('celebrities')
   ])
 }

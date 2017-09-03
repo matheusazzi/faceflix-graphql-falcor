@@ -1,26 +1,27 @@
 const DB = require('./../db')
 
 const Media = require('./media')
-const Comment = require('./comment')
+const Credit = require('./credit')
 const Post = require('./post')
 const Favorite = require('./favorite')
 const Recommendation = require('./recommendation')
-const Reaction = require('./reaction')
+const Genre = require('./genre')
+const Company = require('./company')
 
-const User = DB.Model.extend({
-  tableName: 'users',
+const Title = DB.Model.extend({
+  tableName: 'titles',
 
   defaults: {
   },
 
   hasTimestamps: true,
 
-  avatar: function() {
+  cover: function() {
     return this.morphOne(Media, 'attachable')
   },
 
-  comments: function() {
-    return this.hasMany(Comment)
+  crew: function() {
+    return this.hasMany(Credit)
   },
 
   posts: function() {
@@ -35,10 +36,14 @@ const User = DB.Model.extend({
     return this.hasMany(Recommendation)
   },
 
-  reactions: function() {
-    return this.hasMany(Reaction)
+  genres: function() {
+    return this.belongsToMany(Genre)
+  },
+
+  companies: function() {
+    return this.belongsToMany(Company)
   }
 
 })
 
-module.exports = User
+module.exports = Title
