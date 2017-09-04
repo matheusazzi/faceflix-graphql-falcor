@@ -3,7 +3,7 @@ exports.up = (knex, Promise) => {
     knex.schema.createTableIfNotExists('companies', (t) => {
       t.increments('id').primary()
 
-      t.string('name').unique().notNullable()
+      t.string('name').notNullable().unique()
 
       t.timestamps()
     })

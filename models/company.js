@@ -8,7 +8,7 @@ const Company = DB.Model.extend({
   hasTimestamps: true,
 
   titles: function() {
-    return this.hasMany(Title)
+    return this.belongsToMany(Title)
   }
 
 })

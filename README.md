@@ -114,7 +114,7 @@ User {
 
 Title {
   budget: Int
-  cover: Media
+  poster: Media
   crew: [Credit]
   companies: [Company]
   genres: [Genre]

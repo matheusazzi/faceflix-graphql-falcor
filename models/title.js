@@ -16,7 +16,7 @@ const Title = DB.Model.extend({
 
   hasTimestamps: true,
 
-  cover: function() {
+  poster: function() {
     return this.morphOne(Media, 'attachable')
   },
 
