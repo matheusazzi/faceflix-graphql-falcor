@@ -10,8 +10,7 @@ const Reaction = require('./reaction')
 const User = DB.Model.extend({
   tableName: 'users',
 
-  defaults: {
-  },
+  defaults: {},
 
   hasTimestamps: true,
 
