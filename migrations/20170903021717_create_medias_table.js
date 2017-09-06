@@ -6,8 +6,10 @@ exports.up = (knex, Promise) => {
       t.string('video_url')
       t.string('image_url')
 
-      t.integer('attachable_id')
-      t.string('attachable_type')
+      t.integer('attachable_id').notNullable()
+      t.string('attachable_type').notNullable()
+
+      t.foreign(['attachable_id', 'reactionable_id'])
 
       t.timestamps()
     })

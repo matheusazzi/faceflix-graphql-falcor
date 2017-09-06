@@ -141,6 +141,16 @@ User.where({id: 1})
   .fetch({withRelated: ['avatar']})
   .then((user) => user.serialize().avatar)
 
+User.where({id: 1})
+  .fetch({withRelated: ['avatar']})
+  .then((user) => user.related('avatar').serialize())
+
+
 Media.where({attachable_id: 1, attachable_type: 'users'})
-  .fetch().then((media) => media.serialize())
+  .fetch()
+  .then((media) => media.serialize())
+
+Media.where({id: 8})
+  .fetch({withRelated: ['attachable']})
+  .then((media) => media.serialize().attachable.name)
 ```

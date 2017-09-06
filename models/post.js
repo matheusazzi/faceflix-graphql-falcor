@@ -14,7 +14,7 @@ const Post = DB.Model.extend({
   hasTimestamps: true,
 
   author: function() {
-    return this.bolongsTo(Post)
+    return this.bolongsTo(User)
   },
 
   title: function() {

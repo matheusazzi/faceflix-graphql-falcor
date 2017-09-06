@@ -7,7 +7,7 @@ exports.up = (knex, Promise) => {
 
       t.integer('user_id').references('users.id')
       t.integer('post_id').references('posts.id')
-      t.integer('title_id').references('titles.id')
+      t.integer('title_id')
 
       t.timestamps()
     })

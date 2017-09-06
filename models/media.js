@@ -9,7 +9,7 @@ const Media = DB.Model.extend({
 
   hasTimestamps: true,
 
-  attachable: function() {
+  owner: function() {
     return this.morphTo('attachable', User, Celebrity, Title)
   }
 

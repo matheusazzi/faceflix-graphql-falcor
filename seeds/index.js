@@ -12,34 +12,33 @@ const posts = require('./fixtures/posts')
 const comments = require('./fixtures/comments')
 const favorites = require('./fixtures/favorites')
 const recommendations = require('./fixtures/recommendations')
-// const reactions = require('./fixtures/reactions')
-// const medias = require('./fixtures/medias')
-// const friends = require('./fixtures/friends')
+const reactions = require('./fixtures/reactions')
 
-exports.seed = (knex, Promise) => {
-  return Promise.all([
-    addToDatabase('genres', genres, knex),
-    addToDatabase('companies', companies, knex),
-    addToDatabase('titles', titles, knex),
-    addToDatabase('celebrities', celebrities, knex),
+const medias = require('./fixtures/medias')
+const friendships = require('./fixtures/friendships')
 
-    addToDatabase('genres_titles', genresTitles, knex),
-    addToDatabase('companies_titles', companiesTitles, knex),
-    addToDatabase('credits', credits, knex),
+exports.seed = async (knex) => {
+    await addToDatabase('genres', genres, knex)
+    await addToDatabase('companies', companies, knex)
+    await addToDatabase('titles', titles, knex)
+    await addToDatabase('celebrities', celebrities, knex)
 
-    addToDatabase('users', users, knex),
-    addToDatabase('posts', posts, knex),
-    addToDatabase('comments', comments, knex),
-    addToDatabase('favorites', favorites, knex),
-    addToDatabase('recommendations', recommendations, knex)
-  ])
+    await addToDatabase('genres_titles', genresTitles, knex)
+    await addToDatabase('companies_titles', companiesTitles, knex)
+    await addToDatabase('credits', credits, knex)
+
+    await addToDatabase('users', users, knex)
+    await addToDatabase('posts', posts, knex)
+    await addToDatabase('comments', comments, knex)
+    await addToDatabase('favorites', favorites, knex)
+    await addToDatabase('recommendations', recommendations, knex)
+    await addToDatabase('reactions', reactions, knex)
+
+    await addToDatabase('medias', medias, knex)
+    await addToDatabase('friendships', friendships, knex)
 }
 
-const addToDatabase = (tableName, data, knex) => {
-  // Deletes ALL existing entries
-  return knex(tableName).del()
-    .then(() => {
-      // Inserts seed entries
-      return knex(tableName).insert(data)
-    })
+const addToDatabase = async (tableName, data, knex) => {
+  await knex(tableName).del()
+  await knex(tableName).insert(data)
 }

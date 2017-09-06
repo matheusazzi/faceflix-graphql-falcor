@@ -6,8 +6,11 @@ exports.up = (knex, Promise) => {
       t.enu('type', ['like', 'dislike'])
 
       t.integer('user_id').references('users.id')
-      t.integer('reactionable_id')
-      t.string('reactionable_type')
+
+      t.integer('reactionable_id').notNullable()
+      t.string('reactionable_type').notNullable()
+
+      t.foreign(['user_id', 'reactionable_id', 'reactionable_type'])
 
       t.timestamps()
     })
