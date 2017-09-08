@@ -1,5 +1,4 @@
 import express from 'express'
-import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import graphQLHTTP from 'express-graphql'
 
@@ -28,9 +27,5 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500)
   res.json({ error: err.message })
 })
-
-if (process.env.NODE_ENV == 'development') {
-  app.use(morgan('dev'))
-}
 
 module.exports = app

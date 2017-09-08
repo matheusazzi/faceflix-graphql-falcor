@@ -151,6 +151,6 @@ Media.where({attachable_id: 1, attachable_type: 'users'})
   .then((media) => media.serialize())
 
 Media.where({id: 8})
-  .fetch({withRelated: ['attachable']})
+  .fetch({withRelated: ['owner']})
   .then((media) => media.serialize().attachable.name)
 ```
