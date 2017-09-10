@@ -4,10 +4,10 @@ exports.up = (knex, Promise) => {
       t.increments('id').primary()
 
       t.integer('user_id').notNullable()
-      t.integer('title_id').notNullable()
+      t.integer('movie_id').notNullable()
 
-      t.foreign(['user_id', 'title_id'])
-        .references(['users.id', 'titles.id'])
+      t.foreign(['user_id', 'movie_id'])
+        .references(['users.id', 'movies.id'])
 
       t.timestamps()
     })

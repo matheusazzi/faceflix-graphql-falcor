@@ -7,7 +7,7 @@ const data = [
   { video_url: null, image_url: 'http://lorempixel.com/400/400/people/?6', attachable_id: 6, attachable_type: 'users' },
   { video_url: null, image_url: 'http://lorempixel.com/400/400/people/?7', attachable_id: 7, attachable_type: 'users' },
   { video_url: null, image_url: 'http://lorempixel.com/400/400/people/?8', attachable_id: 8, attachable_type: 'users' },
-  { video_url: null, image_url: 'http://lorempixel.com/600/800/people/?9', attachable_id: 1, attachable_type: 'titles' }
+  { video_url: null, image_url: 'http://lorempixel.com/600/800/people/?9', attachable_id: 1, attachable_type: 'movies' }
 ]
 
 module.exports = data

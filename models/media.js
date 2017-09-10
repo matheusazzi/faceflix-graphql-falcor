@@ -2,7 +2,7 @@ const DB = require('./../config/db')
 
 const User = require('./user')
 const Celebrity = require('./celebrity')
-const Title = require('./title')
+const Movie = require('./movie')
 
 const Media = DB.Model.extend({
   tableName: 'medias',
@@ -10,7 +10,7 @@ const Media = DB.Model.extend({
   hasTimestamps: true,
 
   owner: function() {
-    return this.morphTo('attachable', User, Celebrity, Title)
+    return this.morphTo('attachable', User, Celebrity, Movie)
   }
 
 })

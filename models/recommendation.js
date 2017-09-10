@@ -1,6 +1,6 @@
 const DB = require('./../config/db')
 
-const Title = require('./title')
+const Movie = require('./movie')
 const User = require('./user')
 
 const Recommendation = DB.Model.extend({
@@ -8,8 +8,8 @@ const Recommendation = DB.Model.extend({
 
   hasTimestamps: true,
 
-  title: function() {
-    return this.belongsTo(Title)
+  movie: function() {
+    return this.belongsTo(Movie)
   },
 
   user: function() {

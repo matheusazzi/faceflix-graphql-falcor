@@ -2,9 +2,9 @@ import * as g from 'graphql'
 
 import { timestamps } from './../utils'
 
-import Title from './../../models/title'
+import Movie from './../../models/movie'
 
-import TitleType from './title_type'
+import MovieType from './movie_type'
 
 const CompanyType = new g.GraphQLObjectType({
   name: 'Company',
@@ -12,15 +12,15 @@ const CompanyType = new g.GraphQLObjectType({
   fields: () => ({
     id: { type: g.GraphQLID },
     name: { type: g.GraphQLString },
-    titles: {
-      type: new g.GraphQLList(TitleType),
+    movies: {
+      type: new g.GraphQLList(MovieType),
       resolve: company => {
-        return Title.query((qb) => {
-          qb.innerJoin('companies_titles', 'titles.id', 'companies_titles.title_id')
-          qb.where('companies_titles.company_id', company.id)
+        return Movie.query((qb) => {
+          qb.innerJoin('companies_movies', 'movies.id', 'companies_movies.movie_id')
+          qb.where('companies_movies.company_id', company.id)
         })
           .fetchAll()
-          .then((titles) => titles.serialize())
+          .then((movies) => movies.serialize())
       }
     },
     createdAt: timestamps('a empresa').createdAt,

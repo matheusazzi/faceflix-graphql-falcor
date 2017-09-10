@@ -8,8 +8,8 @@ const Recommendation = require('./recommendation')
 const Genre = require('./genre')
 const Company = require('./company')
 
-const Title = DB.Model.extend({
-  tableName: 'titles',
+const Movie = DB.Model.extend({
+  tableName: 'movies',
 
   hasTimestamps: true,
 
@@ -43,4 +43,4 @@ const Title = DB.Model.extend({
 
 })
 
-module.exports = Title
+module.exports = Movie

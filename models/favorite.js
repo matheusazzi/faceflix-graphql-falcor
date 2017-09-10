@@ -1,6 +1,6 @@
 const DB = require('./../config/db')
 
-const Title = require('./title')
+const Movie = require('./movie')
 const Celebrity = require('./celebrity')
 
 const Favorite = DB.Model.extend({
@@ -8,8 +8,8 @@ const Favorite = DB.Model.extend({
 
   hasTimestamps: true,
 
-  title: function() {
-    return this.belongsTo(Title)
+  movie: function() {
+    return this.belongsTo(Movie)
   },
 
   celebrity: function() {

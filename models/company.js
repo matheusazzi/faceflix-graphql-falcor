@@ -1,14 +1,14 @@
 const DB = require('./../config/db')
 
-const Title = require('./title')
+const Movie = require('./movie')
 
 const Company = DB.Model.extend({
   tableName: 'companies',
 
   hasTimestamps: true,
 
-  titles: function() {
-    return this.belongsToMany(Title)
+  movies: function() {
+    return this.belongsToMany(Movie)
   }
 
 })

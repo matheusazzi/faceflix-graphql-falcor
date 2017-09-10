@@ -3,21 +3,21 @@ import * as g from 'graphql'
 import { findById, timestamps } from './../utils'
 
 import User from './../../models/user'
-import Title from './../../models/title'
+import Movie from './../../models/movie'
 import Celebrity from './../../models/celebrity'
 
 import UserType from './../types/user_type'
 import CelebrityType from './../types/celebrity_type'
-import TitleType from './../types/title_type'
+import MovieType from './../types/movie_type'
 
 const OwnerUnion = () => {
   return new g.GraphQLUnionType({
     name: 'OwnerUnion',
-    types: [UserType, CelebrityType, TitleType],
+    types: [UserType, CelebrityType, MovieType],
 
     resolveType(data) {
-      if (data.title) {
-        return TitleType
+      if (data.movie) {
+        return MovieType
       } else if (data.birthday) {
         return CelebrityType
       } else {
@@ -43,8 +43,8 @@ const MediaType = new g.GraphQLObjectType({
     owner: {
       type: OwnerUnion(),
       resolve: media => {
-        if (media.attachable_type == 'titles') {
-          return where(Title, { id: media.attachable_id })
+        if (media.attachable_type == 'movies') {
+          return where(Movie, { id: media.attachable_id })
         } else if (media.attachable_type == 'users') {
           return where(User, { id: media.attachable_id })
         } else if (media.attachable_type == 'celebrities') {

@@ -11,7 +11,6 @@ import Reaction from './../../models/reaction'
 import Recommendation from './../../models/recommendation'
 
 import MediaType from './media_type'
-// import UserType from './user_type'
 import CommentType from './comment_type'
 import PostType from './post_type'
 import FavoriteType from './favorite_type'
@@ -37,18 +36,18 @@ const UserType = new g.GraphQLObjectType({
         attachable_type: 'users'
       })
     },
-    // friends: {
-    //   type: new g.GraphQLList(FriendType),
-    //   resolve: user => {
-    //     return User.query((qb) => {
-    //       qb.innerJoin('friendships', 'users.id', 'friendships.user_one_id')
-    //       qb.where('friendships.user_two_id', user.id)
-    //       qb.where('friendships.status', 'approved')
-    //     })
-    //       .fetchAll()
-    //       .then((titles) => titles.serialize())
-    //   }
-    // },
+    friends: {
+      type: new g.GraphQLList(UserType),
+      resolve: user => {
+        return User.query((qb) => {
+          qb.innerJoin('friendships', 'users.id', 'friendships.user_one_id')
+          qb.where('friendships.user_two_id', user.id)
+          qb.where('friendships.status', 'approved')
+        })
+          .fetchAll()
+          .then((movies) => movies.serialize())
+      }
+    },
     comments: {
       type: new g.GraphQLList(CommentType),
       resolve: user => where(Comment, {user_id: user.id})

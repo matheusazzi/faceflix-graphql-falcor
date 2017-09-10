@@ -17,7 +17,7 @@ const data = [{
   body: "If you liked it, you should watch Dunkirk. Nolan it the director too.",
   user_id: 6,
   post_id: 1,
-  title_id: 2,
+  movie_id: 2,
   created_at: new Date(),
   updated_at: new Date()
 }]

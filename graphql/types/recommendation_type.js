@@ -2,10 +2,10 @@ import * as g from 'graphql'
 
 import { findById, timestamps } from './../utils'
 
-import Title from './../../models/title'
+import Movie from './../../models/movie'
 import User from './../../models/user'
 
-import TitleType from './title_type'
+import MovieType from './movie_type'
 import UserType from './user_type'
 
 const RecommendationType = new g.GraphQLObjectType({
@@ -13,9 +13,9 @@ const RecommendationType = new g.GraphQLObjectType({
 
   fields: () => ({
     id: { type: g.GraphQLID },
-    title: {
-      type: TitleType,
-      resolve: credit => findById(Title, credit.title_id)
+    movie: {
+      type: MovieType,
+      resolve: credit => findById(Movie, credit.movie_id)
     },
     user: {
       type: UserType,

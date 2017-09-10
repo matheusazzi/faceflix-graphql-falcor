@@ -1,7 +1,7 @@
 const DB = require('./../config/db')
 
 const User = require('./user')
-const Title = require('./title')
+const Movie = require('./movie')
 const Post = require('./post')
 const Reaction = require('./reaction')
 
@@ -14,8 +14,8 @@ const Comment = DB.Model.extend({
     return this.bolongsTo(User)
   },
 
-  title: function() {
-    return this.belongsTo(Title)
+  movie: function() {
+    return this.belongsTo(Movie)
   },
 
   post: function() {

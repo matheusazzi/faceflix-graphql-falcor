@@ -27,13 +27,13 @@ Comment {
   body: String
   user: User
   post: Post
-  title: Title
+  movie: Movie
   reactions: [Reaction]
 }
 
 Company {
   name: String
-  titles: [Title]
+  movies: [Movie]
 }
 
 enum Role {
@@ -43,31 +43,31 @@ enum Role {
 }
 
 Credit {
-  title: Title
+  movie: Movie
   celebrity: Celebrity
   role: Role
 }
 
 Favorite {
   user: User
-  title: Title
+  movie: Movie
 }
 
 Genre {
   name: String
-  titles: [Title]
+  movies: [Movie]
 }
 
 Media {
   videoUrl: String
   imageUrl: String
-  owner: User | Celebrity | Title
+  owner: User | Celebrity | Movie
 }
 
 Post {
   body: String
   author: User
-  title: Title
+  movie: Movie
   comments: [Comment]
   reactions: [Reaction]
 }
@@ -85,10 +85,10 @@ Reaction {
 
 Recommendation {
   user: User
-  title: Title
+  movie: Movie
 }
 
-Title {
+Movie {
   budget: Int
   rating: Float
   overview: String
@@ -96,7 +96,7 @@ Title {
   revenue: Int
   runtime: Int
   tagline: String
-  title: String
+  movie: String
   poster: Media
   crew: [Credit]
   companies: [Company]

@@ -1,6 +1,6 @@
 exports.up = (knex, Promise) => {
   return Promise.all([
-    knex.schema.createTableIfNotExists('titles', (t) => {
+    knex.schema.createTableIfNotExists('movies', (t) => {
       t.increments('id').primary()
 
       t.string('title').notNullable()
@@ -19,6 +19,6 @@ exports.up = (knex, Promise) => {
 
 exports.down = (knex, Promise) => {
   return Promise.all([
-    knex.schema.dropTableIfExists('titles')
+    knex.schema.dropTableIfExists('movies')
   ])
 }

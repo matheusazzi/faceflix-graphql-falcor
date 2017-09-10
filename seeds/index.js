@@ -1,10 +1,10 @@
 const genres = require('./fixtures/genres')
 const companies = require('./fixtures/companies')
-const titles = require('./fixtures/titles')
+const movies = require('./fixtures/movies')
 const celebrities = require('./fixtures/celebrities')
 
-const genresTitles = require('./fixtures/genres_titles')
-const companiesTitles = require('./fixtures/companies_titles')
+const genresMovies = require('./fixtures/genres_movies')
+const companiesMovies = require('./fixtures/companies_movies')
 const credits = require('./fixtures/credits')
 
 const users = require('./fixtures/users')
@@ -20,11 +20,11 @@ const friendships = require('./fixtures/friendships')
 exports.seed = async (knex) => {
     await addToDatabase('genres', genres, knex)
     await addToDatabase('companies', companies, knex)
-    await addToDatabase('titles', titles, knex)
+    await addToDatabase('movies', movies, knex)
     await addToDatabase('celebrities', celebrities, knex)
 
-    await addToDatabase('genres_titles', genresTitles, knex)
-    await addToDatabase('companies_titles', companiesTitles, knex)
+    await addToDatabase('genres_movies', genresMovies, knex)
+    await addToDatabase('companies_movies', companiesMovies, knex)
     await addToDatabase('credits', credits, knex)
 
     await addToDatabase('users', users, knex)

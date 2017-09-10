@@ -18,8 +18,8 @@ import PostType from './post_type'
 import FavoriteType from './favorite_type'
 import RecommendationType from './recommendation_type'
 
-const TitleType = new g.GraphQLObjectType({
-  name: 'Title',
+const MovieType = new g.GraphQLObjectType({
+  name: 'Movie',
 
   fields: () => ({
     id: { type: g.GraphQLID },
@@ -32,26 +32,26 @@ const TitleType = new g.GraphQLObjectType({
     tagline: { type: g.GraphQLString },
     releaseDate: {
       type: g.GraphQLString,
-      resolve: (title) => title.release_date
+      resolve: (movie) => movie.release_date
     },
     poster: {
       type: MediaType,
       description: 'Poster do título.',
-      resolve: title => where(Media, {
-        attachable_id: title.id,
-        attachable_type: 'titles'
+      resolve: movie => where(Media, {
+        attachable_id: movie.id,
+        attachable_type: 'movies'
       })
     },
     crew: {
       type: new g.GraphQLList(CreditType),
-      resolve: title => where(Credit, {title_id: title.id})
+      resolve: movie => where(Credit, {movie_id: movie.id})
     },
     companies: {
       type: new g.GraphQLList(CompanyType),
-      resolve: title => {
+      resolve: movie => {
         return Company.query((qb) => {
-          qb.innerJoin('companies_titles', 'companies.id', 'companies_titles.company_id')
-          qb.where('companies_titles.title_id', title.id)
+          qb.innerJoin('companies_movies', 'companies.id', 'companies_movies.company_id')
+          qb.where('companies_movies.movie_id', movie.id)
         })
           .fetchAll()
           .then((companies) => companies.serialize())
@@ -59,10 +59,10 @@ const TitleType = new g.GraphQLObjectType({
     },
     genres: {
       type: new g.GraphQLList(GenreType),
-      resolve: title => {
+      resolve: movie => {
         return Genre.query((qb) => {
-          qb.innerJoin('genres_titles', 'genres.id', 'genres_titles.company_id')
-          qb.where('genres_titles.title_id', title.id)
+          qb.innerJoin('genres_movies', 'genres.id', 'genres_movies.company_id')
+          qb.where('genres_movies.movie_id', movie.id)
         })
           .fetchAll()
           .then((genres) => genres.serialize())
@@ -70,19 +70,19 @@ const TitleType = new g.GraphQLObjectType({
     },
     posts: {
       type: new g.GraphQLList(PostType),
-      resolve: title => where(Post, {title_id: title.id})
+      resolve: movie => where(Post, {movie_id: movie.id})
     },
     favorites: {
       type: new g.GraphQLList(FavoriteType),
-      resolve: title => where(Favorite, {title_id: title.id})
+      resolve: movie => where(Favorite, {movie_id: movie.id})
     },
     recommendations: {
       type: new g.GraphQLList(RecommendationType),
-      resolve: title => where(Recommendation, { title_id: title.id })
+      resolve: movie => where(Recommendation, { movie_id: movie.id })
     },
     createdAt: timestamps('a título').createdAt,
     updatedAt: timestamps('a título').updatedAt
   })
 })
 
-export default TitleType
+export default MovieType

@@ -6,12 +6,12 @@ import { findById } from './../utils'
 import User from './../../models/user'
 import Company from './../../models/company'
 import Comment from './../../models/comment'
-import Title from './../../models/title'
+import Movie from './../../models/movie'
 
 import UserType from './user_type'
 import CompanyType from './company_type'
 import CommentType from './comment_type'
-import TitleType from './title_type'
+import MovieType from './movie_type'
 
 const QueryType = new g.GraphQLObjectType({
   name: 'Query',
@@ -52,13 +52,13 @@ const QueryType = new g.GraphQLObjectType({
         }
       }
     },
-    title: {
+    movie: {
       description: 'Retorna um título.',
-      type: TitleType,
+      type: MovieType,
       args: {
         id: { type: new g.GraphQLNonNull(g.GraphQLID) }
       },
-      resolve: (root, params) => findById(Title, params.id)
+      resolve: (root, params) => findById(Movie, params.id)
     },
     company: {
       description: 'Retorna uma empresa.',

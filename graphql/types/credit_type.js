@@ -2,10 +2,10 @@ import * as g from 'graphql'
 
 import { findById, timestamps } from './../utils'
 
-import Title from './../../models/title'
+import Movie from './../../models/movie'
 import Celebrity from './../../models/celebrity'
 
-import TitleType from './title_type'
+import MovieType from './movie_type'
 import CelebrityType from './celebrity_type'
 
 const CreditType = new g.GraphQLObjectType({
@@ -14,9 +14,9 @@ const CreditType = new g.GraphQLObjectType({
   fields: () => ({
     id: { type: g.GraphQLID },
     role: { type: g.GraphQLString },
-    title: {
-      type: TitleType,
-      resolve: credit => findById(Title, credit.title_id)
+    movie: {
+      type: MovieType,
+      resolve: credit => findById(Movie, credit.movie_id)
     },
     celebrity: {
       type: CelebrityType,

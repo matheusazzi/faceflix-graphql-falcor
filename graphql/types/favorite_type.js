@@ -3,10 +3,10 @@ import * as g from 'graphql'
 import { findById, timestamps } from './../utils'
 
 import User from './../../models/user'
-import Title from './../../models/title'
+import Movie from './../../models/movie'
 
 import UserType from './user_type'
-import TitleType from './title_type'
+import MovieType from './movie_type'
 
 const FavoriteType = new g.GraphQLObjectType({
   name: 'Favorite',
@@ -17,9 +17,9 @@ const FavoriteType = new g.GraphQLObjectType({
       type: UserType,
       resolve: favorite => findById(User, favorite.user_id)
     },
-    title: {
-      type: TitleType,
-      resolve: favorite => findById(Title, favorite.title_id)
+    movie: {
+      type: MovieType,
+      resolve: favorite => findById(Movie, favorite.movie_id)
     },
     createdAt: timestamps('o favorito').createdAt,
     updatedAt: timestamps('o favorito').updatedAt

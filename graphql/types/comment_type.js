@@ -4,12 +4,12 @@ import { findById, where, timestamps } from './../utils'
 
 import User from './../../models/user'
 import Post from './../../models/post'
-import Title from './../../models/title'
+import Movie from './../../models/movie'
 import Reaction from './../../models/reaction'
 
 import UserType from './user_type'
 import PostType from './post_type'
-import TitleType from './title_type'
+import MovieType from './movie_type'
 import ReactionType from './reaction_type'
 
 const CommentType = new g.GraphQLObjectType({
@@ -26,9 +26,9 @@ const CommentType = new g.GraphQLObjectType({
       type: PostType,
       resolve: comment => findById(Post, comment.post_id)
     },
-    title: {
-      type: TitleType,
-      resolve: comment => findById(Title, comment.title_id)
+    movie: {
+      type: MovieType,
+      resolve: comment => findById(Movie, comment.movie_id)
     },
     reactions: {
       type: new g.GraphQLList(ReactionType),
