@@ -39,17 +39,6 @@ Favorite {
   title: Title
 }
 
-enum Status {
-  pending
-  approved
-}
-
-Friendship {
-  user: User
-  friend: User
-  status: Status
-}
-
 Genre {
   name: String
   titles: [Title]
@@ -58,7 +47,7 @@ Genre {
 Media {
   videoUrl: String
   imageUrl: String
-  attachable: User | Celebrity | Title
+  owner: User | Celebrity | Title
 }
 
 enum Gender {

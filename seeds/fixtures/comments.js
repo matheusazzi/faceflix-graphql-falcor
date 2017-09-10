@@ -1,6 +1,6 @@
 const data = [{
   id: 1,
-  body: 'It looks great, adding to wishlist now.',
+  body: 'It looks great, adding this to wishlist now.',
   user_id: 4,
   post_id: 1,
   created_at: new Date(),
