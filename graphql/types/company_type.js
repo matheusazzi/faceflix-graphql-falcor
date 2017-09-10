@@ -11,9 +11,13 @@ const CompanyType = new g.GraphQLObjectType({
 
   fields: () => ({
     id: { type: g.GraphQLID },
-    name: { type: g.GraphQLString },
+    name: {
+      type: g.GraphQLString,
+      description: 'Nome da empresa.'
+    },
     movies: {
       type: new g.GraphQLList(MovieType),
+      description: 'Filmes produzidos pela empresa.',
       resolve: company => {
         return Movie.query((qb) => {
           qb.innerJoin('companies_movies', 'movies.id', 'companies_movies.movie_id')

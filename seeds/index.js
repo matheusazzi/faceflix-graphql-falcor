@@ -1,3 +1,5 @@
+const _ = require('underscore')
+
 const genres = require('./fixtures/genres')
 const companies = require('./fixtures/companies')
 const movies = require('./fixtures/movies')
@@ -38,7 +40,14 @@ exports.seed = async (knex) => {
     await addToDatabase('friendships', friendships, knex)
 }
 
+const addTimestamps = (data) => {
+  return _.extend(data, {
+    created_at: new Date(), updated_at: new Date()
+  })
+}
+
 const addToDatabase = async (tableName, data, knex) => {
+  console.log(`-> Adding ${data.length} ${tableName}.`)
   await knex(tableName).del()
-  await knex(tableName).insert(data)
+  await knex(tableName).insert(data.map(addTimestamps))
 }

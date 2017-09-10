@@ -3,7 +3,7 @@ exports.up = (knex, Promise) => {
     knex.schema.createTableIfNotExists('friendships', (t) => {
       t.increments('id').primary()
 
-      // t.enu('status', ['pending', 'friends']).notNullable()
+      t.enu('status', ['pending', 'approved']).notNullable()
       t.integer('user_one_id').notNullable()
       t.integer('user_two_id').notNullable()
 

@@ -13,10 +13,13 @@ const CelebrityType = new g.GraphQLObjectType({
 
   fields: () => ({
     id: { type: g.GraphQLID },
-    name: { type: g.GraphQLString },
+    name: {
+      type: g.GraphQLString,
+      description: 'Nome da celebridade.'
+    },
     gender: {
       type: g.GraphQLString,
-      description: 'Retorna "male" ou "female"'
+      description: 'Retorna "male" ou "female".'
     },
     birthday: { type: g.GraphQLString },
     biography: { type: g.GraphQLString },
@@ -30,6 +33,7 @@ const CelebrityType = new g.GraphQLObjectType({
     },
     works: {
       type: new g.GraphQLList(CreditType),
+      description: 'Participações em filmes.',
       resolve: celebrity => where(Credit, {celebrity_id: celebrity.id})
     },
     createdAt: timestamps('a celebridade').createdAt,

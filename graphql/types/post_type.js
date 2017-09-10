@@ -20,6 +20,7 @@ const PostType = new g.GraphQLObjectType({
     body: { type: g.GraphQLString },
     author: {
       type: UserType,
+      description: 'Autor do filme.',
       resolve: post => findById(User, post.user_id)
     },
     movie: {

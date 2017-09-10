@@ -14,6 +14,7 @@ const GenreType = new g.GraphQLObjectType({
     name: { type: g.GraphQLString },
     movies: {
       type: new g.GraphQLList(MovieType),
+      description: 'Filmes enquadrados no gênero.',
       resolve: genre => {
         return Movie.query((qb) => {
           qb.innerJoin('genres_movies', 'movies.id', 'genres_movies.movie_id')

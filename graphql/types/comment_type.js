@@ -20,6 +20,7 @@ const CommentType = new g.GraphQLObjectType({
     body: { type: g.GraphQLString },
     user: {
       type: UserType,
+      description: 'Autor do comentário.',
       resolve: comment => findById(User, comment.user_id)
     },
     post: {

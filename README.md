@@ -1,12 +1,13 @@
+### Setup
+
 ```bash
   $ yarn
 
   $ yarn run dev
-
-  $ yarn run migrate
-  $ yarn run rollback
-  $ yarn run seed
+  $ yarn run dbsetup
 ```
+
+### GraphQL Schema
 
 ```graphql
 enum Gender {
@@ -99,6 +100,7 @@ Movie {
   movie: String
   poster: Media
   crew: [Credit]
+  director: Celebrity
   companies: [Company]
   genres: [Genre]
   posts: [Post]
@@ -120,6 +122,8 @@ User {
 }
 ```
 
+### Querying DB
+
 ```javascript
 // $ node
 
@@ -129,15 +133,6 @@ Media = require('./models/media')
 User.where({id: 1})
   .fetch({withRelated: ['avatar']})
   .then((user) => user.serialize().avatar)
-
-User.where({id: 1})
-  .fetch({withRelated: ['avatar']})
-  .then((user) => user.related('avatar').serialize())
-
-
-Media.where({attachable_id: 1, attachable_type: 'users'})
-  .fetch()
-  .then((media) => media.serialize())
 
 Media.where({id: 8})
   .fetch({withRelated: ['owner']})

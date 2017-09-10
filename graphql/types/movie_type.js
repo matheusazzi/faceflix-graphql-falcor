@@ -3,6 +3,7 @@ import * as g from 'graphql'
 import { timestamps, where } from './../utils'
 
 import Media from './../../models/media'
+import Celebrity from './../../models/celebrity'
 import Credit from './../../models/credit'
 import Company from './../../models/company'
 import Genre from './../../models/genre'
@@ -11,6 +12,7 @@ import Favorite from './../../models/favorite'
 import Recommendation from './../../models/recommendation'
 
 import MediaType from './media_type'
+import CelebrityType from './celebrity_type'
 import CreditType from './credit_type'
 import CompanyType from './company_type'
 import GenreType from './genre_type'
@@ -23,20 +25,42 @@ const MovieType = new g.GraphQLObjectType({
 
   fields: () => ({
     id: { type: g.GraphQLID },
-    budget: { type: g.GraphQLInt },
-    revenue: { type: g.GraphQLInt },
-    runtime: { type: g.GraphQLInt },
-    title: { type: g.GraphQLString },
-    rating: { type: g.GraphQLFloat },
-    overview: { type: g.GraphQLString },
-    tagline: { type: g.GraphQLString },
+    budget: {
+      type: g.GraphQLInt,
+      description: 'Orçamento do filme.'
+    },
+    revenue: {
+      type: g.GraphQLInt,
+      description: 'Receita do filme.'
+    },
+    runtime: {
+      type: g.GraphQLInt,
+      description: 'Duração do filme.'
+    },
+    title: {
+      type: g.GraphQLString,
+      description: 'Título do filme.'
+    },
+    rating: {
+      type: g.GraphQLFloat,
+      description: 'Nota média do filme.'
+    },
+    overview: {
+      type: g.GraphQLString,
+      description: 'Sinopse do filme.'
+    },
+    tagline: {
+      type: g.GraphQLString,
+      description: 'Slogan do filme.'
+    },
     releaseDate: {
       type: g.GraphQLString,
+      description: 'Data de lançamento do filme.',
       resolve: (movie) => movie.release_date
     },
     poster: {
       type: MediaType,
-      description: 'Poster do título.',
+      description: 'Poster do filme.',
       resolve: movie => where(Media, {
         attachable_id: movie.id,
         attachable_type: 'movies'
@@ -44,10 +68,25 @@ const MovieType = new g.GraphQLObjectType({
     },
     crew: {
       type: new g.GraphQLList(CreditType),
+      description: 'Equipe principal do filme.',
       resolve: movie => where(Credit, {movie_id: movie.id})
+    },
+    director: {
+      type: CelebrityType,
+      description: 'Diretor do filme.',
+      resolve: movie => {
+        return Celebrity.query((qb) => {
+          qb.innerJoin('credits', 'celebrities.id', 'credits.celebrity_id')
+          qb.where('credits.movie_id', movie.id)
+          qb.where('credits.role', 'director')
+        })
+          .fetch()
+          .then((director) => director.serialize())
+      }
     },
     companies: {
       type: new g.GraphQLList(CompanyType),
+      description: 'Empresas produtoras do filme.',
       resolve: movie => {
         return Company.query((qb) => {
           qb.innerJoin('companies_movies', 'companies.id', 'companies_movies.company_id')
@@ -59,6 +98,7 @@ const MovieType = new g.GraphQLObjectType({
     },
     genres: {
       type: new g.GraphQLList(GenreType),
+      description: 'Gêneros do filme.',
       resolve: movie => {
         return Genre.query((qb) => {
           qb.innerJoin('genres_movies', 'genres.id', 'genres_movies.company_id')

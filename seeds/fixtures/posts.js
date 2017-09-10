@@ -1,10 +1,8 @@
 const data = [{
   id: 1,
-  body: 'That movie is amazing! Definitely worth watching.',
+  body: 'That movie is amazing! It definitely worth watching.',
   author_id: 1,
-  movie_id: 1,
-  created_at: new Date(),
-  updated_at: new Date()
+  movie_id: 1
 }]
 
 module.exports = data
