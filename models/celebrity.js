@@ -6,9 +6,6 @@ const Credit = require('./credit')
 const Celebrity = DB.Model.extend({
   tableName: 'celebrities',
 
-  defaults: {
-  },
-
   hasTimestamps: true,
 
   avatar: function() {

@@ -1,7 +1,7 @@
 import * as g from 'graphql'
 import * as _ from 'underscore'
 
-import { findById } from './../../models/queries'
+import { findById } from './../utils'
 
 import User from './../../models/user'
 import Company from './../../models/company'

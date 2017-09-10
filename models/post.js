@@ -8,9 +8,6 @@ const Reaction = require('./reaction')
 const Post = DB.Model.extend({
   tableName: 'posts',
 
-  defaults: {
-  },
-
   hasTimestamps: true,
 
   author: function() {

@@ -5,9 +5,6 @@ const User = require('./user')
 const Friendship = DB.Model.extend({
   tableName: 'friendships',
 
-  defaults: {
-  },
-
   hasTimestamps: true,
 
   users: function() {

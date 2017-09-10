@@ -11,9 +11,6 @@ const Company = require('./company')
 const Title = DB.Model.extend({
   tableName: 'titles',
 
-  defaults: {
-  },
-
   hasTimestamps: true,
 
   poster: function() {

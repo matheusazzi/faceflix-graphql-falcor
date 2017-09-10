@@ -9,12 +9,26 @@
 ```
 
 ```graphql
+enum Gender {
+  male
+  female
+}
+
+Celebrity {
+  name: String
+  gender: Gender
+  birthday: Date
+  biography: String
+  works: [Credit]
+  avatar: Media
+}
+
 Comment {
+  body: String
   user: User
   post: Post
   title: Title
   reactions: [Reaction]
-  body: String
 }
 
 Company {
@@ -50,20 +64,6 @@ Media {
   owner: User | Celebrity | Title
 }
 
-enum Gender {
-  male
-  female
-}
-
-Celebrity {
-  name: String
-  gender: Gender
-  birthday: Date
-  biography: String
-  works: [Credit]
-  avatar: Media
-}
-
 Post {
   body: String
   author: User
@@ -88,6 +88,24 @@ Recommendation {
   title: Title
 }
 
+Title {
+  budget: Int
+  rating: Float
+  overview: String
+  releaseDate: Date
+  revenue: Int
+  runtime: Int
+  tagline: String
+  title: String
+  poster: Media
+  crew: [Credit]
+  companies: [Company]
+  genres: [Genre]
+  posts: [Post]
+  recommendations: [Recommendation]
+  favorites: [Favorite]
+}
+
 User {
   name: String
   email: String
@@ -99,24 +117,6 @@ User {
   recommendations: [Recommendation]
   reactions: [Reaction]
   friends: [User]
-}
-
-Title {
-  budget: Int
-  poster: Media
-  crew: [Credit]
-  companies: [Company]
-  genres: [Genre]
-  posts: [Post]
-  recommendations: [Recommendation]
-  favorites: [Favorite]
-  rating: Float
-  overview: String
-  releaseDate: Date
-  revenue: Int
-  runtime: Int
-  tagline: String
-  title: String
 }
 ```
 

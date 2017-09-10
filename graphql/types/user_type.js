@@ -1,6 +1,6 @@
 import * as g from 'graphql'
 
-import { timestamps, where } from './../../models/queries'
+import { timestamps, where } from './../utils'
 
 import Media from './../../models/media'
 import User from './../../models/user'

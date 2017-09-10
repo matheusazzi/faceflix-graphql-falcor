@@ -1,6 +1,6 @@
 import * as g from 'graphql'
 
-import { findById, timestamps } from './../../models/queries'
+import { findById, timestamps } from './../utils'
 
 import Title from './../../models/title'
 import Celebrity from './../../models/celebrity'
