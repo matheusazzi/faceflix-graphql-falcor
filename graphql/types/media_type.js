@@ -32,6 +32,7 @@ const MediaType = new g.GraphQLObjectType({
 
   fields: () => ({
     id: { type: g.GraphQLID },
+    type: { type: g.GraphQLString },
     imageUrl: {
       type: g.GraphQLString,
       resolve: media => media.image_url

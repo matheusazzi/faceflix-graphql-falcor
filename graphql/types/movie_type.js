@@ -1,6 +1,6 @@
 import * as g from 'graphql'
 
-import { timestamps, where } from './../utils'
+import { timestamps, where, whereAll } from './../utils'
 
 import Media from './../../models/media'
 import Celebrity from './../../models/celebrity'
@@ -63,13 +63,23 @@ const MovieType = new g.GraphQLObjectType({
       description: 'Poster do filme.',
       resolve: movie => where(Media, {
         attachable_id: movie.id,
-        attachable_type: 'movies'
+        attachable_type: 'movies',
+        type: 'image'
+      })
+    },
+    trailer: {
+      type: MediaType,
+      description: 'Trailer do filme.',
+      resolve: movie => where(Media, {
+        attachable_id: movie.id,
+        attachable_type: 'movies',
+        type: 'video'
       })
     },
     crew: {
       type: new g.GraphQLList(CreditType),
       description: 'Equipe principal do filme.',
-      resolve: movie => where(Credit, {movie_id: movie.id})
+      resolve: movie => whereAll(Credit, {movie_id: movie.id})
     },
     director: {
       type: CelebrityType,
@@ -110,15 +120,15 @@ const MovieType = new g.GraphQLObjectType({
     },
     posts: {
       type: new g.GraphQLList(PostType),
-      resolve: movie => where(Post, {movie_id: movie.id})
+      resolve: movie => whereAll(Post, {movie_id: movie.id})
     },
     favorites: {
       type: new g.GraphQLList(FavoriteType),
-      resolve: movie => where(Favorite, {movie_id: movie.id})
+      resolve: movie => whereAll(Favorite, {movie_id: movie.id})
     },
     recommendations: {
       type: new g.GraphQLList(RecommendationType),
-      resolve: movie => where(Recommendation, { movie_id: movie.id })
+      resolve: movie => whereAll(Recommendation, { movie_id: movie.id })
     },
     createdAt: timestamps('a título').createdAt,
     updatedAt: timestamps('a título').updatedAt

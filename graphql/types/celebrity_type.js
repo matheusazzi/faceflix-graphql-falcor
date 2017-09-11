@@ -1,6 +1,6 @@
 import * as g from 'graphql'
 
-import { timestamps, where } from './../utils'
+import { timestamps, where, whereAll } from './../utils'
 
 import Media from './../../models/media'
 import Credit from './../../models/credit'
@@ -34,7 +34,7 @@ const CelebrityType = new g.GraphQLObjectType({
     works: {
       type: new g.GraphQLList(CreditType),
       description: 'Participações em filmes.',
-      resolve: celebrity => where(Credit, {celebrity_id: celebrity.id})
+      resolve: celebrity => whereAll(Credit, {celebrity_id: celebrity.id})
     },
     createdAt: timestamps('a celebridade').createdAt,
     updatedAt: timestamps('a celebridade').updatedAt

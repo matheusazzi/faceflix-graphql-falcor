@@ -59,9 +59,15 @@ Genre {
   movies: [Movie]
 }
 
+enum FileType {
+  image
+  video
+}
+
 Media {
   videoUrl: String
   imageUrl: String
+  type: FileType
   owner: User | Celebrity | Movie
 }
 
@@ -97,8 +103,9 @@ Movie {
   revenue: Int
   runtime: Int
   tagline: String
-  movie: String
+  title: String
   poster: Media
+  trailer: Media
   crew: [Credit]
   director: Celebrity
   companies: [Company]
@@ -137,4 +144,73 @@ User.where({id: 1})
 Media.where({id: 8})
   .fetch({withRelated: ['owner']})
   .then((media) => media.serialize().attachable.name)
+```
+
+### Query GraphQL
+
+```graphql
+query {
+  post(id: 1) {
+    id
+    body
+    author {
+      name
+      avatar {
+        imageUrl
+      }
+    }
+    movie {
+      title
+      rating
+      tagline
+      poster {
+        imageUrl
+      }
+      trailer {
+        videoUrl
+      }
+      director {
+        name
+        avatar {
+          imageUrl
+        }
+      }
+      crew {
+        role
+      	celebrity {
+          name
+          avatar {
+            imageUrl
+          }
+        }
+      }
+      recommendations {
+        user {
+          name
+        }
+      }
+    }
+    comments {
+      body
+      user {
+        name
+        avatar {
+          imageUrl
+        }
+      }
+      reactions {
+        type
+        user {
+          name
+        }
+      }
+    }
+    reactions {
+      type
+      user {
+        name
+      }
+    }
+  }
+}
 ```

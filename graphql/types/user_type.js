@@ -1,6 +1,6 @@
 import * as g from 'graphql'
 
-import { timestamps, where } from './../utils'
+import { timestamps, where, whereAll } from './../utils'
 
 import Media from './../../models/media'
 import User from './../../models/user'
@@ -50,25 +50,25 @@ const UserType = new g.GraphQLObjectType({
     },
     comments: {
       type: new g.GraphQLList(CommentType),
-      resolve: user => where(Comment, {user_id: user.id})
+      resolve: user => whereAll(Comment, {user_id: user.id})
     },
     posts: {
       type: new g.GraphQLList(PostType),
-      resolve: user => where(Post, {author_id: user.id})
+      resolve: user => whereAll(Post, {author_id: user.id})
     },
     favorites: {
       type: new g.GraphQLList(FavoriteType),
-      resolve: user => where(Favorite, {user_id: user.id})
+      resolve: user => whereAll(Favorite, {user_id: user.id})
     },
     reactions: {
       type: new g.GraphQLList(ReactionType),
-      resolve: user => where(Reaction, {
+      resolve: user => whereAll(Reaction, {
         reactionable_id: user.id, reactionable_type: 'users'
       })
     },
     recommendations: {
       type: new g.GraphQLList(RecommendationType),
-      resolve: user => where(Recommendation, { user_id: user.id })
+      resolve: user => whereAll(Recommendation, { user_id: user.id })
     },
     createdAt: timestamps('o usuário').createdAt,
     updatedAt: timestamps('o usuário').updatedAt

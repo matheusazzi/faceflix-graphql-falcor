@@ -1,6 +1,6 @@
 import * as g from 'graphql'
 
-import { findById, where, timestamps } from './../utils'
+import { findById, whereAll, timestamps } from './../utils'
 
 import User from './../../models/user'
 import Post from './../../models/post'
@@ -33,7 +33,7 @@ const CommentType = new g.GraphQLObjectType({
     },
     reactions: {
       type: new g.GraphQLList(ReactionType),
-      resolve: comment => where(Reaction, {
+      resolve: comment => whereAll(Reaction, {
         reactionable_id: comment.id, reactionable_type: 'comments'
       })
     },

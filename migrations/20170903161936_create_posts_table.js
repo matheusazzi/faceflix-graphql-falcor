@@ -5,7 +5,7 @@ exports.up = (knex, Promise) => {
 
       t.text('body').notNullable()
 
-      t.integer('author_id').references('users.id')
+      t.integer('user_id').references('users.id')
       t.integer('movie_id').references('movies.id')
 
       t.timestamps()

@@ -6,6 +6,11 @@ const findById = (model, id) => {
 }
 
 const where = (model, clause) => {
+  return model.where(clause).fetch()
+    .then((res) => res.serialize())
+}
+
+const whereAll = (model, clause) => {
   return model.where(clause).fetchAll()
     .then((res) => res.serialize())
 }
@@ -25,4 +30,4 @@ const timestamps = (text) => {
   }
 }
 
-export { findById, where, timestamps }
+export { findById, where, whereAll, timestamps }

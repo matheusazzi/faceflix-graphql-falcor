@@ -17,6 +17,10 @@ const Movie = DB.Model.extend({
     return this.morphOne(Media, 'attachable')
   },
 
+  trailer: function() {
+    return this.morphOne(Media, 'attachable')
+  },
+
   crew: function() {
     return this.hasMany(Credit)
   },
