@@ -1,20 +1,36 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import graphQLHTTP from 'express-graphql'
-
 import routes from './config/routes'
+
+import graphQLHTTP from 'express-graphql'
 import schema from './graphql/schema'
+
+import FalcorServer from 'falcor-express'
+import FalcorPostman from 'falcor-postman'
+import FalcorRoutes from './falcor/routes'
 
 const app = express()
 
 app.use(bodyParser.json())
+app.use(bodyParser.text({ type: 'text/*' }))
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use('/', routes)
 
-app.use(graphQLHTTP({
+app.use('/graphql', graphQLHTTP({
   schema,
   graphiql: true
+}))
+
+app.use(
+  '/model.json',
+  FalcorServer.dataSourceRoute((req, res) => FalcorRoutes)
+)
+
+app.use(FalcorPostman({
+  middlewarePath: '/falcor',
+  falcorModelPath: '/model.json',
+  app
 }))
 
 app.use((req, res, next) => {
