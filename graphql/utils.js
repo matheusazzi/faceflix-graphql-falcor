@@ -1,31 +1,17 @@
 import * as g from 'graphql'
-
-const findById = (model, id) => {
-  return model.where({ id: id }).fetch()
-    .then((res) => res.serialize())
-}
-
-const where = (model, clause) => {
-  return model.where(clause).fetch()
-    .then((res) => res.serialize())
-}
-
-const whereAll = (model, clause) => {
-  return model.where(clause).fetchAll()
-    .then((res) => res.serialize())
-}
+import { findById, where, whereAll } from './../models/utils'
 
 const timestamps = (text) => {
   return {
     createdAt: {
       type: g.GraphQLString,
       description: `Data de criação d${text}.`,
-      resolve: user => user.created_at
+      resolve: record => record.created_at
     },
     updatedAt: {
       type: g.GraphQLString,
       description: `Data da última alteração n${text}.`,
-      resolve: user => user.updated_at
+      resolve: record => record.updated_at
     }
   }
 }

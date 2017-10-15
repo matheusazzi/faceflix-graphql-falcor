@@ -8,19 +8,17 @@ import Media from './../models/media'
 import Movie from './../models/movie'
 import Comment from './../models/comment'
 
-import { findById, where, whereAll } from './../graphql/utils'
+import {
+  serialize,
+  findById,
+  where,
+  whereAll,
+  whereIn,
+  quote,
+  columns
+} from './../models/utils'
 
 const $ref = jsonGraph.ref
-
-const quote = a => `'${a}'`
-
-const columns = table => {
-  return _.chain(
-    require(`./../seeds/fixtures/${table}`)[0]
-  ).keys().union(
-    ['id', 'created_at', 'updated_at']
-  ).map(quote).join(',').value()
-}
 
 const FalcorRoutes = new Router.createClass([{
   route: `postById[{integers:postIds}][${columns('posts')}]`,
@@ -135,14 +133,8 @@ const FalcorRoutes = new Router.createClass([{
   route: `commentsById[{integers:commentIds}][${columns('comments')}]`,
 
   async get(pathSet) {
-    const comments = await Comment.query((qb) => {
-      qb.where('comments.id', 'IN', pathSet.commentIds)
-    })
-      .fetchAll()
-      .then((res) => res.serialize())
-
+    const comments = await whereIn(Comment, pathSet.commentIds)
     const results = []
-    console.log(comments)
 
     comments.forEach((comment) => {
       pathSet[2].map((key) => {
@@ -159,12 +151,7 @@ const FalcorRoutes = new Router.createClass([{
   route: `commentsById[{integers:commentIds}].user`,
 
   async get(pathSet) {
-    const comments = await Comment.query((qb) => {
-      qb.where('comments.id', 'IN', pathSet.commentIds)
-    })
-      .fetchAll()
-      .then((res) => res.serialize())
-
+    const comments = await whereIn(Comment, pathSet.commentIds)
     const results = []
 
     comments.forEach((comment, i) => {
@@ -180,12 +167,7 @@ const FalcorRoutes = new Router.createClass([{
   route: `usersById[{integers:userIds}][${columns('users')}]`,
 
   async get(pathSet) {
-    const users = await User.query((qb) => {
-      qb.where('users.id', 'IN', pathSet.userIds)
-    })
-      .fetchAll()
-      .then((res) => res.serialize())
-
+    const users = await whereIn(User, pathSet.userIds)
     const results = []
 
     users.forEach((user) => {
@@ -208,7 +190,7 @@ const FalcorRoutes = new Router.createClass([{
       qb.where('attachable_type', 'users')
     })
       .fetchAll()
-      .then((res) => res.serialize())
+      .then(serialize)
 
     const results = []
 
@@ -225,12 +207,7 @@ const FalcorRoutes = new Router.createClass([{
   route: `mediasById[{integers:mediaIds}][${columns('medias')}]`,
 
   async get(pathSet) {
-    const medias = await Media.query((qb) => {
-      qb.where('medias.id', 'IN', pathSet.mediaIds)
-    })
-      .fetchAll()
-      .then((res) => res.serialize())
-
+    const medias = await whereIn(Media, pathSet.mediaIds)
     const results = []
 
     medias.forEach((media) => {
