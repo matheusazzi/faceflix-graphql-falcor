@@ -19,7 +19,7 @@ app.use('/', routes)
 
 app.use('/graphql', graphQLHTTP({
   schema,
-  graphiql: true
+  graphiql: { endpointURL: '/repl' }
 }))
 
 app.use(
@@ -28,7 +28,7 @@ app.use(
 )
 
 app.use(FalcorPostman({
-  middlewarePath: '/falcor',
+  middlewarePath: '/falcor/repl',
   falcorModelPath: '/model.json',
   app
 }))

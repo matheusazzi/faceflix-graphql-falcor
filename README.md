@@ -148,7 +148,7 @@ Media.where({id: 8})
 
 ### Query GraphQL
 
-- Go to `/graphql/graphiql`
+- Go to `/graphql/repl`
 
 ```graphql
 query {
@@ -192,7 +192,7 @@ query {
         }
       }
     }
-    comments {
+    comments(first: 3) {
       body
       user {
         name
@@ -219,16 +219,18 @@ query {
 
 ### Query Falcor
 
-- Go to `/falcor`
+- Go to `/falcor/repl`
 
 ```javascript
 [
-  ["postById", [1], ["id", "body"]],
-  ["postById", [1], ["author"], ["name"]],
-  ["postById", [1], ["author"], ["avatar"], ["image_url"]],
-  ["postById", [1], ["movie"], ["title", "rating", "tagline"]],
-  ["postById", [1], ["movie"], ["poster"], ["image_url"]],
-  ["postById", [1], ["movie"], ["trailer"], ["video_url"]],
-  ["postById", [1], ["comments"], {"from": 0, "to": 3}, ["body"]]
+  ["postById", 1, ["body", "id"]],
+  ["postById", 1, "author", "name"],
+  ["postById", 1, "author", "avatar", "image_url"],
+  ["postById", 1, "movie", ["rating", "tagline", "title"]],
+  ["postById", 1, "movie", "poster", "image_url"],
+  ["postById", 1, "movie", "trailer", "video_url"],
+  ["postById", 1, "comments", {"from": 0, "to": 2}, "body"],
+  ["postById", 1, "comments", {"from": 0, "to": 2}, "user", "name"],
+  ["postById", 1, "comments", {"from": 0, "to": 2}, "user", "avatar", "image_url"]
 ]
 ```

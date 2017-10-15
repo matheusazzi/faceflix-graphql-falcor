@@ -1,4 +1,5 @@
 import * as g from 'graphql'
+import _ from 'underscore'
 
 import { findById, whereAll, timestamps } from './../utils'
 
@@ -29,7 +30,21 @@ const PostType = new g.GraphQLObjectType({
     },
     comments: {
       type: new g.GraphQLList(CommentType),
-      resolve: post => whereAll(Comment, {post_id: post.id})
+      args: {
+        first: { type: g.GraphQLInt },
+        last: { type: g.GraphQLInt }
+      },
+      resolve: async (post, params) => {
+        const data = await whereAll(Comment, { post_id: post.id })
+
+        if (params.first) {
+          return _.first(data, params.first)
+        } else if (params.last) {
+          return _.last(data, params.last)
+        } else {
+          return data
+        }
+      }
     },
     reactions: {
       type: new g.GraphQLList(ReactionType),

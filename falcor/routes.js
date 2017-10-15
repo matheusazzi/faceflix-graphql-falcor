@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import _ from 'underscore'
 import Router from 'falcor-router'
 import jsonGraph from 'falcor-json-graph'
 
@@ -17,9 +17,9 @@ const quote = a => `'${a}'`
 const columns = table => {
   return _.chain(
     require(`./../seeds/fixtures/${table}`)[0]
-  ).keys().concat(
+  ).keys().union(
     ['id', 'created_at', 'updated_at']
-  ).uniq().map(quote).join(',').value()
+  ).map(quote).join(',').value()
 }
 
 const FalcorRoutes = new Router.createClass([{
@@ -39,38 +39,15 @@ const FalcorRoutes = new Router.createClass([{
     return results
   }
 }, {
-  route: `postById[{integers:postIds}].author[${columns('users')}]`,
+  route: `postById[{integers:postIds}].author`,
 
   async get(pathSet) {
     const post = await findById(Post, pathSet.postIds[0])
-    const user = await findById(User, post.user_id)
     const results = []
 
-    pathSet[3].map((key) => {
-      results.push({
-        path: ['postById', post.id, 'author', key],
-        value: user[key]
-      })
-    })
-
-    return results
-  }
-}, {
-  route: `postById[{integers:postIds}].author.avatar[${columns('medias')}]`,
-
-  async get(pathSet) {
-    const post = await findById(Post, pathSet.postIds[0])
-    const media = await where(Media, {
-      attachable_id: post.user_id,
-      attachable_type: 'users'
-    })
-    const results = []
-
-    pathSet[4].map((key) => {
-      results.push({
-        path: ['postById', post.id, 'author', 'avatar', key],
-        value: media[key]
-      })
+    results.push({
+      path: ['postById', pathSet.postIds[0], 'author'],
+      value: $ref(['usersById', post.user_id])
     })
 
     return results
@@ -155,22 +132,112 @@ const FalcorRoutes = new Router.createClass([{
     return results
   }
 }, {
-  route: `commentsById[{integers:commentsIds}][${columns('comments')}]`,
+  route: `commentsById[{integers:commentIds}][${columns('comments')}]`,
 
   async get(pathSet) {
     const comments = await Comment.query((qb) => {
-      qb.where('comments.id', 'IN', pathSet.commentsIds)
+      qb.where('comments.id', 'IN', pathSet.commentIds)
     })
       .fetchAll()
       .then((res) => res.serialize())
 
     const results = []
+    console.log(comments)
 
     comments.forEach((comment) => {
       pathSet[2].map((key) => {
         results.push({
           path: ['commentsById', comment.id, key],
           value: comment[key]
+        })
+      })
+    })
+
+    return results
+  }
+}, {
+  route: `commentsById[{integers:commentIds}].user`,
+
+  async get(pathSet) {
+    const comments = await Comment.query((qb) => {
+      qb.where('comments.id', 'IN', pathSet.commentIds)
+    })
+      .fetchAll()
+      .then((res) => res.serialize())
+
+    const results = []
+
+    comments.forEach((comment, i) => {
+      results.push({
+        path: ['commentsById', pathSet.commentIds[i], 'user'],
+        value: $ref(['usersById', comment.user_id])
+      })
+    })
+
+    return results
+  }
+}, {
+  route: `usersById[{integers:userIds}][${columns('users')}]`,
+
+  async get(pathSet) {
+    const users = await User.query((qb) => {
+      qb.where('users.id', 'IN', pathSet.userIds)
+    })
+      .fetchAll()
+      .then((res) => res.serialize())
+
+    const results = []
+
+    users.forEach((user) => {
+      pathSet[2].map((key) => {
+        results.push({
+          path: ['usersById', user.id, key],
+          value: user[key]
+        })
+      })
+    })
+
+    return results
+  }
+}, {
+  route: `usersById[{integers:userIds}].avatar`,
+
+  async get(pathSet) {
+    const medias = await Media.query((qb) => {
+      qb.where('medias.attachable_id', 'IN', pathSet.userIds)
+      qb.where('attachable_type', 'users')
+    })
+      .fetchAll()
+      .then((res) => res.serialize())
+
+    const results = []
+
+    medias.forEach((media, i) => {
+      results.push({
+        path: ['usersById', pathSet.userIds[i], 'avatar'],
+        value: $ref(['mediasById', media.id])
+      })
+    })
+
+    return results
+  }
+}, {
+  route: `mediasById[{integers:mediaIds}][${columns('medias')}]`,
+
+  async get(pathSet) {
+    const medias = await Media.query((qb) => {
+      qb.where('medias.id', 'IN', pathSet.mediaIds)
+    })
+      .fetchAll()
+      .then((res) => res.serialize())
+
+    const results = []
+
+    medias.forEach((media) => {
+      pathSet[2].map((key) => {
+        results.push({
+          path: ['mediasById', media.id, key],
+          value: media[key]
         })
       })
     })
