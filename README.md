@@ -1,10 +1,38 @@
+# FaceFlix
+
+It's a GraphQL and Falcor personal experiment. The goal is to make a comparison between those technologies.
+
+Because GraphQL and Falcor have been developed by Facebook and Netflix respectively, the experiment consists of a social network mix with a movie catalog, where users can create posts and comments about the movies they're watching.
+
+- [GraphQL REPL](http://faceflix.herokuapp.com/graphql/repl)
+- [Falcor REPL](http://faceflix.herokuapp.com/falcor/repl)
+
 ### Setup
+
+#### Dependencies:
+
+- Node.js
+- Yarn
+- PostgreSQL
+
+#### Creating database:
+
+```bash
+  $ psql
+  $ CREATE DATABASE base_tcc_development;
+```
+
+#### Setup Node:
 
 ```bash
   $ yarn
-
-  $ yarn run dev
   $ yarn run dbsetup
+```
+
+#### Running:
+
+```bash
+  $ yarn run dev
 ```
 
 ### GraphQL Schema
