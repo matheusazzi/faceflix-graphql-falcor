@@ -7,7 +7,7 @@ import schema from './graphql/schema'
 
 import FalcorServer from 'falcor-express'
 import FalcorPostman from 'falcor-postman'
-import FalcorRoutes from './falcor/routes'
+import FalcorRoutes from './falcor/router'
 
 const app = express()
 

@@ -1,4 +1,5 @@
 import * as g from 'graphql'
+import _ from 'underscore'
 
 import { timestamps, where, whereAll } from './../utils'
 
@@ -78,8 +79,22 @@ const MovieType = new g.GraphQLObjectType({
     },
     crew: {
       type: new g.GraphQLList(CreditType),
+      args: {
+        first: { type: g.GraphQLInt },
+        last: { type: g.GraphQLInt }
+      },
       description: 'Equipe principal do filme.',
-      resolve: movie => whereAll(Credit, {movie_id: movie.id})
+      resolve: async (movie, params) => {
+        const data = await whereAll(Credit, { movie_id: movie.id })
+
+        if (params.first) {
+          return _.first(data, params.first)
+        } else if (params.last) {
+          return _.last(data, params.last)
+        } else {
+          return data
+        }
+      }
     },
     director: {
       type: CelebrityType,
