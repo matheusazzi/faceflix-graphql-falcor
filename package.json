@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "babel-node --presets es2015,stage-0 -- ./bin/www",
-    "dev": "NODE_ENV=development nodemon --exec babel-node --presets es2015,stage-0 -- ./bin/www",
+    "dev": "NODE_ENV=development nodemon --exec babel-node --inspect --presets es2015,stage-0 -- ./bin/www",
     "migrate": "babel-node --presets es2015,stage-0 -- node_modules/knex/bin/cli.js --knexfile=./config/knexfile.js migrate:latest",
     "rollback": "babel-node --presets es2015,stage-0 -- node_modules/knex/bin/cli.js --knexfile=./config/knexfile.js migrate:rollback",
     "seed": "babel-node --presets es2015,stage-0 -- node_modules/knex/bin/cli.js --knexfile=./config/knexfile.js seed:run",
