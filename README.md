@@ -205,7 +205,7 @@ query {
           imageUrl
         }
       }
-      crew(first: 5) {
+      crew {
         role
       	celebrity {
           name
