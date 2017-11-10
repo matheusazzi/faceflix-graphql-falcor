@@ -3,7 +3,7 @@ module.exports = {
   development: {
     client: 'postgresql',
     connection: {
-      database: 'base_tcc_development'
+      database: 'faceflix_development'
     },
     pool: {
       min: 2,

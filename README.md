@@ -19,20 +19,20 @@ Because GraphQL and Falcor have been developed by Facebook and Netflix respectiv
 
 ```bash
   $ psql
-  $ CREATE DATABASE base_tcc_development;
+  $ CREATE DATABASE faceflix_development;
 ```
 
 #### Setup Node:
 
 ```bash
   $ yarn
-  $ yarn run dbsetup
+  $ yarn dbsetup
 ```
 
 #### Running:
 
 ```bash
-  $ yarn run dev
+  $ yarn dev
 ```
 
 ### GraphQL Schema
