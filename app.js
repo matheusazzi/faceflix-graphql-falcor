@@ -22,10 +22,20 @@ app.use('/graphql', graphQLHTTP({
   graphiql: { endpointURL: '/repl' }
 }))
 
-app.use(
-  '/model.json',
-  FalcorServer.dataSourceRoute((req, res) => FalcorRoutes)
-)
+if (process.env.NODE_ENV == 'development') {
+  app.use(
+    '/model.json',
+    FalcorServer.dataSourceRoute((req, res) => {
+      console.log(req.query && req.query.paths)
+      return FalcorRoutes
+    })
+  )
+} else {
+  app.use(
+    '/model.json',
+    FalcorServer.dataSourceRoute((req, res) => FalcorRoutes)
+  )
+}
 
 app.use(FalcorPostman({
   middlewarePath: '/falcor/repl',

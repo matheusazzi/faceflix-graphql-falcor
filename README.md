@@ -262,3 +262,114 @@ query {
   ["postById", 1, "comments", {"from": 0, "to": 2}, "user", "avatar", "image_url"]
 ]
 ```
+
+### DER
+
+```
+celebrities:
+  id
+  name
+  gender
+  biography
+  birthday
+  created_at
+  updated_at
+
+comments:
+  id
+  body
+  user_id
+  post_id
+  created_at
+  updated_at
+
+companies:
+  id
+  name
+  created_at
+  updated_at
+
+credits:
+  id
+  movie_id
+  celebrity_id
+  role
+  created_at
+  updated_at
+
+favorites:
+  id
+  movie_id
+  user_id
+  created_at
+  updated_at
+
+friendships:
+  id
+  user_one_id
+  user_two_id
+  status
+  created_at
+  updated_at
+
+genres:
+  id
+  name
+  created_at
+  updated_at
+
+medias:
+  id
+  video_url
+  image_url
+  attachable_id
+  attachable_type
+  type
+  created_at
+  updated_at
+
+movies:
+  id
+  title
+  overview
+  tagline
+  budget
+  release_date
+  revenue
+  runtime
+  rating
+  created_at
+  updated_at
+
+posts:
+  id
+  body
+  user_id
+  movie_id
+  created_at
+  updated_at
+
+reactions:
+  id
+  user_id
+  type
+  reactionable_id
+  reactionable_type
+  created_at
+  updated_at
+
+recommendations:
+  id
+  movie_id
+  user_id
+  created_at
+  updated_at
+
+users:
+  id
+  name
+  email
+  gender
+  created_at
+  updated_at
+```
